@@ -11,16 +11,13 @@ float time;
 int pivotSpacing;
 
 
-  PVector pv = new PVector(), origin = new PVector(width/2, height/3);
-  float R = 40;
-  float ang = PI/4;
+  PVector pv = new PVector(), origin = new PVector();
+  float R = 40; //TetherLength
+  float ang = PI*2/3;
   float grav = .4;
   float accel = 0.0;
   float damp = .995;
   float vel = 0.0;
-
-  float pacer = width*2/3;
-  float pace = 1;
   
 void setup() {
   size(800, 500);
@@ -39,8 +36,7 @@ void setup() {
   player = new Player(pivots[0]);
   
   
-  
-  
+  origin = new PVector(width/3, height/3);
 }
 
 void draw() {
@@ -49,13 +45,8 @@ void draw() {
 
   //Samples
   time = (float)millis()/1000;
-  println(time);
   float wave = 60*cos(time*2) + height/3;
   ellipse(width/2, wave, 20, 20);
-  
-  if((int)time % 2 == 0) pace *= -1;
-  pacer += 2 * pace;
-  ellipse(pacer, height/8, 10, 10);
 
   //Daniel Shiffman Pendulum
   accel = (-1 * grav / R) * sin(ang);
@@ -67,6 +58,7 @@ void draw() {
   pv.add(origin);
   fill(#AAAA00);
   line(origin.x, origin.y, pv.x, pv.y);
+  ellipse(origin.x, origin.x, 20, 20);
   ellipse(pv.x, pv.y, 20, 20);
 
 

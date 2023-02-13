@@ -1,35 +1,40 @@
 class Player {
-  final float GRAVITY = 9.8f;
+  final float GRAVITY = 9.8;
   final float friction = .99;
-  
+
   //Position and Velocity
   PVector pos, v;
   int radius;
 
+  float angle, acceleration, damping, velocity;
 
   boolean isTethered;
   int maxTetherLength;
-  Pivot currentAttachedPivot;
+  Pivot originPivot;
 
   Player(Pivot p) {
+    v = new PVector();
     pos = new PVector();
-    v = new PVector();  
-    pos.x = p.x;
-    pos.y = p.y + 75;
+    pos.set(p.pos.x, p.pos.y);
     radius = 16;
+
+    angle = PI/2;
+    acceleration = 0.0;
+    damping = .99;
+    velocity = 0.0;
 
     isTethered = true;
     maxTetherLength = 100;
-    currentAttachedPivot = p;
+    originPivot = p;
   }
 
   void update() {
     //v.y += GRAVITY;
-    v.x *= friction;
-    
-    pos.x += v.x * dt;
-    pos.y += v.y * dt;
-    if (isTethered) Tether(currentAttachedPivot);
+    //v.x *= friction;
+
+    //pos.x += v.x * dt;
+    //pos.y += v.y * dt;
+    if (isTethered) Tether(originPivot);
   }
 
   void draw() {
@@ -39,24 +44,34 @@ class Player {
   }
 
   //Tether takes a pivot as input to bind to
-  void Tether(Pivot p) {
+  void Tether(Pivot origin) {
     //Make the player conform to the pivot and tether
-    float angle = atan2(p.y-pos.y, p.x-pos.x);
+    float angle = atan2(origin.pos.y-pos.y, origin.pos.x-pos.x);
     //length of a line: sqrt((x2 - x1)^2 + (y2 - y1)^2)
-    float currentTetherLength = sqrt( (p.x-pos.x)*(p.x-pos.x) + (p.y-pos.y)*(p.y-pos.y));
+    float R = sqrt( (origin.pos.x-pos.x)*(origin.pos.x-pos.x) + (origin.pos.y-pos.y)*(origin.pos.y-pos.y));
     //If tether is at max length, stop the player from leaving the proximity
-    if (currentTetherLength >= maxTetherLength) { //STUB
+
+    acceleration = (-1 * GRAVITY / R) * sin(angle);
+
+    if (R >= maxTetherLength) { //STUB
       //currentTetherLength = maxTetherLength;
       //pos.x += currentTetherLength*cos(angle);
       //pos.y = p.y + currentTetherLength;
       //v.y = 0;
-      pos.y += (-1 * GRAVITY / currentTetherLength) * sin(angle);
+      velocity += acceleration;
+      velocity *= damping;
+      angle += velocity;
+
+      pv.set(R*sin(ang), R*cos(ang), 0);
+      pv.add(origin.pos);
+    } else {
+      pos.y += GRAVITY;
     }
-    
+
     //Draw
     strokeWeight(2);
     stroke(0);
-    line(pos.x, pos.y, p.x, p.y);
+    line(pos.x, pos.y, origin.pos.x, origin.pos.y);
   }
 
   void ApplyForce() {
