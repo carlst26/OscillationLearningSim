@@ -50,6 +50,7 @@ class Player {
       //pos.x += currentTetherLength*cos(angle);
       //pos.y = p.y + currentTetherLength;
       //v.y = 0;
+      pos.y += (-1 * GRAVITY / currentTetherLength) * sin(angle);
     }
     
     //Draw
