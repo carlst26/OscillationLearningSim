@@ -1,15 +1,14 @@
 class Player {
-  final float GRAVITY = 9.8;
+  final float GRAVITY = 1.0;
   final float friction = .99;
 
   //Position and Velocity
   PVector pos, v;
   int radius;
 
-  float angle, acceleration, damping, velocity;
+  float angle, acceleration, damping, velocity, R, maxTetherLength;
 
   boolean isTethered;
-  int maxTetherLength;
   Pivot originPivot;
 
   Player(Pivot p) {
@@ -18,13 +17,14 @@ class Player {
     pos.set(p.pos.x, p.pos.y);
     radius = 16;
 
-    angle = PI/2;
+    angle = Float.NaN;
     acceleration = 0.0;
     damping = .99;
     velocity = 0.0;
+    //R = maxTetherLength;
 
     isTethered = true;
-    maxTetherLength = 100;
+    maxTetherLength = 75.0;
     originPivot = p;
   }
 
@@ -46,24 +46,29 @@ class Player {
   //Tether takes a pivot as input to bind to
   void Tether(Pivot origin) {
     //Make the player conform to the pivot and tether
-    float angle = atan2(origin.pos.y-pos.y, origin.pos.x-pos.x);
-    //length of a line: sqrt((x2 - x1)^2 + (y2 - y1)^2)
-    float R = sqrt( (origin.pos.x-pos.x)*(origin.pos.x-pos.x) + (origin.pos.y-pos.y)*(origin.pos.y-pos.y));
+    //R = sqrt( (origin.pos.x-pos.x)*(origin.pos.x-pos.x) + (origin.pos.y-pos.y)*(origin.pos.y-pos.y) );
+    float lineLength = sqrt( (origin.pos.x-pos.x)*(origin.pos.x-pos.x) + (origin.pos.y-pos.y)*(origin.pos.y-pos.y) );
+    //float angleStart = atan2(origin.pos.y-pos.y, origin.pos.x-pos.x);
+    if ( lineLength >= maxTetherLength ) {
+      R = maxTetherLength;
+      //if (Float.isNaN(angle)) angle = angleStart;
+    }
     //If tether is at max length, stop the player from leaving the proximity
 
-    acceleration = (-1 * GRAVITY / R) * sin(angle);
-
-    if (R >= maxTetherLength) { //STUB
-      //currentTetherLength = maxTetherLength;
+    if (R == maxTetherLength) { //STUB
+      //R = maxTetherLength;
+    if (Float.isNaN(angle)) angle = atan2(origin.pos.y-pos.y, origin.pos.x-pos.x);
+      acceleration = (-1 * GRAVITY / R) * sin(angle);
       //pos.x += currentTetherLength*cos(angle);
       //pos.y = p.y + currentTetherLength;
       //v.y = 0;
+      //if (acceleration 
       velocity += acceleration;
       velocity *= damping;
       angle += velocity;
 
-      pv.set(R*sin(ang), R*cos(ang), 0);
-      pv.add(origin.pos);
+      pos.set(R*sin(angle), R*cos(angle));
+      pos.add(origin.pos);
     } else {
       pos.y += GRAVITY;
     }
@@ -76,7 +81,7 @@ class Player {
 
   void ApplyForce() {
     print("z");
-    v.x += 500;
+    velocity += .05;
   }
 
   void DetachTether() {

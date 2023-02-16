@@ -12,7 +12,7 @@ int pivotSpacing;
 
 
   PVector pv = new PVector(), origin = new PVector();
-  float R = 40; //TetherLength
+  float r = 40; //TetherLength
   float ang = PI*2/3;
   float grav = .4;
   float accel = 0.0;
@@ -49,16 +49,17 @@ void draw() {
   ellipse(width/2, wave, 20, 20);
 
   //Daniel Shiffman Pendulum
-  accel = (-1 * grav / R) * sin(ang);
+  accel = (-1 * grav / r) * sin(ang);
   vel += accel;
   vel *= damp;
   ang += vel;
-
-  pv.set(R*sin(ang), R*cos(ang), 0);
+  
+  pv.set(r*sin(ang), r*cos(ang), 0);
   pv.add(origin);
   fill(#AAAA00);
+  stroke(1);
   line(origin.x, origin.y, pv.x, pv.y);
-  ellipse(origin.x, origin.x, 20, 20);
+  ellipse(origin.x, origin.y, 5, 5);
   ellipse(pv.x, pv.y, 20, 20);
 
 
