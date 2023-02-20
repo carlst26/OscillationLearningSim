@@ -11,17 +11,20 @@ float time;
 int pivotSpacing;
 
 
-  PVector pv = new PVector(), origin = new PVector();
-  float r = 40; //TetherLength
-  float ang = PI*2/3;
-  float grav = .4;
-  float accel = 0.0;
-  float damp = .995;
-  float vel = 0.0;
-  
+PVector pv = new PVector(), origin = new PVector();
+float r = 40; //TetherLength
+float ang = PI*2/3;
+float grav = .4;
+float accel = 0.0;
+float damp = .995;
+float vel = 0.0;
+
+String gameState; //main, slides, & game
+
 void setup() {
   size(800, 500);
   prevTime = 0;
+  gameState = "main";
   pivotSpacing =  width/8; //Initiate after width is declared
 
   pivots = new Pivot[3]; //Initiate with static amount because there will always only be 3
@@ -34,8 +37,8 @@ void setup() {
   goal = new Goal(width-pivotSpacing);
   //Instantiate the player on the first pivot
   player = new Player(pivots[0]);
-  
-  
+
+
   origin = new PVector(width/3, height/3);
 }
 
@@ -53,7 +56,7 @@ void draw() {
   vel += accel;
   vel *= damp;
   ang += vel;
-  
+
   pv.set(r*sin(ang), r*cos(ang), 0);
   pv.add(origin);
   fill(#AAAA00);
