@@ -4,6 +4,7 @@ class SceneGame extends Scene {
   Goal goal;
 
   int pivotSpacing;
+  float time;
 
 
   PVector pv = new PVector(), origin = new PVector();
@@ -71,7 +72,7 @@ class SceneGame extends Scene {
     //UI
   }
 
-   void keyPressed() {
+  void keyPressed() {
     if (player != null) {
       if (keyCode == 90) player.ApplyForce(); //Z
       if (keyCode == 32) player.DetachTether(); //Spacebar

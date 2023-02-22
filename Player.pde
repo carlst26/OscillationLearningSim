@@ -70,7 +70,7 @@ class Player {
       pos.set(R*sin(angle), R*cos(angle));
       pos.add(origin.pos);
     } else {
-      velocity += GRAVITY * dt;
+      pos.y += GRAVITY;
     }
     
     
