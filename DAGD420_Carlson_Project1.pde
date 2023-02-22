@@ -41,7 +41,7 @@ void keyPressed() {
 boolean isMouseHover(float x, float y, int w, int h) { // Button - put in Main class to be accessible from ANY CLASS
   if (mouseX >= x && mouseX <= ( x + w ) && mouseY >= y && mouseY <= ( y + h) ) { //When mouse over button:
     pushMatrix(); //just so it doesnt change the colors of stuff outside of the push Matrix (dont need push & popMatrices)
-    fill(255, 100); //Alpha channel for transparency
+    fill(255, 50); //Alpha channel for transparency
     rect(x, y, w, h);
     popMatrix();
     return true;

@@ -11,24 +11,29 @@ class SceneTitle extends Scene {
     playButton = new PVector(width*1/4, height*4/5);
     slidesButton = new PVector(width*3/4, height*4/5);
   }
-  void update() {
-  }
+  void update() {}
 
   void draw() {
-    background(#729EA1);
+    background(#69c4e1);
 
-    strokeJoin(BEVEL);
-    strokeWeight(4);
+    strokeJoin(ROUND);
+    strokeWeight(5);
 
-    stroke(#BA274C);
-    fill(#DB5375);
+    stroke(#b3475a);
+    fill(#e06582);
     rect(playButton.x - buttonW/2, playButton.y - buttonH/2, buttonW, buttonH);
     hoveringPlayButton = isMouseHover(playButton.x - buttonW/2, playButton.y - buttonH/2, buttonW, buttonH);
 
-    stroke(#454A29);
-    fill(#B5BD89);
+    stroke(#1e913a);
+    fill(#33d064);
     rect(slidesButton.x - buttonW/2, slidesButton.y - buttonH/2, buttonW, buttonH);
     hoveringSlidesButton = isMouseHover(slidesButton.x - buttonW/2, slidesButton.y - buttonH/2, buttonW, buttonH);
+    
+    textAlign(CENTER, CENTER);
+    fill(255);
+    textSize(32);
+    text("PLAY", playButton.x, playButton.y-4);
+    text("LEARN", slidesButton.x, slidesButton.y-4);
   }
 
   void mousePressed() {
