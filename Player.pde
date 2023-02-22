@@ -14,7 +14,7 @@ class Player {
   Player(Pivot p) {
     v = new PVector();
     pos = new PVector();
-    pos.set(p.pos.x+50, p.pos.y-50);
+    pos.set(p.pos.x, p.pos.y-50);
     radius = 16;
 
     angle = Float.NaN;
@@ -70,7 +70,7 @@ class Player {
       pos.set(R*sin(angle), R*cos(angle));
       pos.add(origin.pos);
     } else {
-      pos.y += GRAVITY;
+      velocity += GRAVITY * dt;
     }
     
     
