@@ -20,7 +20,7 @@ class SceneTitle extends Scene {
     strokeJoin(BEVEL);
     strokeWeight(4);
 
-    stroke(#931636);
+    stroke(#BA274C);
     fill(#DB5375);
     rect(playButton.x - buttonW/2, playButton.y - buttonH/2, buttonW, buttonH);
     hoveringPlayButton = isMouseHover(playButton.x - buttonW/2, playButton.y - buttonH/2, buttonW, buttonH);

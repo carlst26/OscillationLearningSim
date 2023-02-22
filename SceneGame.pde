@@ -33,7 +33,7 @@ class SceneGame extends Scene {
     origin = new PVector(width/3, height/3);
   }
 
-  @Override public void update() {
+  public void update() {
     player.update();
     goal.update();
     for (Pivot piv : pivots) {
@@ -41,7 +41,7 @@ class SceneGame extends Scene {
     }
   }
 
-  @Override public void draw() {
+  public void draw() {
     //Samples
     time = (float)millis()/1000;
     float wave = 60*cos(time*2) + height/3;
@@ -72,7 +72,7 @@ class SceneGame extends Scene {
     //UI
   }
 
-  void keyPressed() {
+  public void keyPressed() {
     if (player != null) {
       if (keyCode == 90) player.ApplyForce(); //Z
       if (keyCode == 32) player.DetachTether(); //Spacebar

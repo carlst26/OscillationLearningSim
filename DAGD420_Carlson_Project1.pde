@@ -10,7 +10,7 @@ Scene gameState;
 void setup() {
   size(800, 500);
   prevTime = 0;
-  
+
   gameState = new SceneTitle();
 }
 
@@ -29,6 +29,14 @@ void calcDeltaTime() {
   prevTime = currTime;
 }
 
+void mousePressed() {
+  gameState.mousePressed();
+}
+
+void keyPressed() {
+  gameState.keyPressed();
+}
+
 // Thank you Quynh!
 boolean isMouseHover(float x, float y, int w, int h) { // Button - put in Main class to be accessible from ANY CLASS
   if (mouseX >= x && mouseX <= ( x + w ) && mouseY >= y && mouseY <= ( y + h) ) { //When mouse over button:
@@ -38,6 +46,6 @@ boolean isMouseHover(float x, float y, int w, int h) { // Button - put in Main c
     popMatrix();
     return true;
   } else
-  //returns false if it doesn't pass the check
-  return false;
+    //returns false if it doesn't pass the check
+    return false;
 }
