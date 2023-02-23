@@ -46,23 +46,15 @@ class Player {
   //Tether takes a pivot as input to bind to
   void Tether(Pivot origin) {
     //Make the player conform to the pivot and tether
-    //R = sqrt( (origin.pos.x-pos.x)*(origin.pos.x-pos.x) + (origin.pos.y-pos.y)*(origin.pos.y-pos.y) );
     float lineLength = sqrt( (origin.pos.x-pos.x)*(origin.pos.x-pos.x) + (origin.pos.y-pos.y)*(origin.pos.y-pos.y) );
-    //float angleStart = atan2(origin.pos.y-pos.y, origin.pos.x-pos.x);
-    if ( lineLength >= maxTetherLength ) {
-      R = maxTetherLength;
-      //if (Float.isNaN(angle)) angle = angleStart;
-    }
+    
     //If tether is at max length, stop the player from leaving the proximity
+    if ( lineLength >= maxTetherLength )
+      R = maxTetherLength;
 
     if (R == maxTetherLength) { //STUB
-      //R = maxTetherLength;
       if (Float.isNaN(angle)) angle = atan2(origin.pos.y-pos.y, origin.pos.x-pos.x);
       acceleration = (-1 * GRAVITY / R) * sin(angle);
-      //pos.x += currentTetherLength*cos(angle);
-      //pos.y = p.y + currentTetherLength;
-      //v.y = 0;
-      //if (acceleration
       velocity += acceleration;
       velocity *= damping;
       angle += velocity;
@@ -70,10 +62,9 @@ class Player {
       pos.set(R*sin(angle), R*cos(angle));
       pos.add(origin.pos);
     } else {
-      pos.y += GRAVITY;
     }
-    
-    
+
+
 
     //Draw
     strokeWeight(2);

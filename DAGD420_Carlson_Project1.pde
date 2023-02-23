@@ -20,7 +20,7 @@ void setup() {
 void draw() {
   time = (float)millis()/1000;
   calcDeltaTime();
-  background(240);
+  background(purple);
 
   gameState.update();
 

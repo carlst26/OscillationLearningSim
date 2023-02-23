@@ -3,7 +3,7 @@ class Goal extends Pivot {
 
   Goal(int x) {
     super(x);
-    pColor = #00AA00;
+    pColor = yellow;
   }
 
   void update() {
