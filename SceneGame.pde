@@ -4,7 +4,6 @@ class SceneGame extends Scene {
   Goal goal;
 
   int pivotSpacing;
-  float time;
 
 
   PVector pv = new PVector(), origin = new PVector();
@@ -43,7 +42,6 @@ class SceneGame extends Scene {
 
   public void draw() {
     //Samples
-    time = (float)millis()/1000;
     float wave = 60*cos(time*2) + height/3;
     ellipse(width/2, wave, 20, 20);
 
