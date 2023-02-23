@@ -14,7 +14,7 @@ class Player {
   Player(Pivot p) {
     v = new PVector();
     pos = new PVector();
-    pos.set(p.pos.x, p.pos.y-50);
+    pos.set(p.pos.x, p.pos.y);
     radius = 16;
 
     angle = Float.NaN;
@@ -35,6 +35,8 @@ class Player {
     //pos.x += v.x * dt;
     //pos.y += v.y * dt;
     if (isTethered) Tether(originPivot);
+    
+    //stayInBounds();
   }
 
   void draw() {
@@ -62,6 +64,10 @@ class Player {
       pos.set(R*sin(angle), R*cos(angle));
       pos.add(origin.pos);
     } else {
+      acceleration = GRAVITY;
+      velocity += acceleration;
+      angle = 0;
+      pos.set(R*sin(angle), R*cos(angle));
     }
 
 
@@ -74,11 +80,17 @@ class Player {
 
   void ApplyForce() {
     print("z");
-    velocity += .05;
+    velocity += .1;
   }
 
   void DetachTether() {
     isTethered = false;
     print("space");
+  }
+  
+  void stayInBounds() {
+    if (pos.x < radius) pos.x = radius;
+    if (pos.x > width-radius) pos.x = width-radius;
+    if (pos.y > 200) pos.y = 200;
   }
 }

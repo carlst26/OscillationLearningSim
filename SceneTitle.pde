@@ -14,7 +14,7 @@ class SceneTitle extends Scene {
   }
 
   void update() {
-    wave = 100*cos(time) + width/2;
+    wave = 100*sin(time) + width/2;
   }
 
   void draw() {
@@ -22,29 +22,33 @@ class SceneTitle extends Scene {
 
     strokeJoin(ROUND);
     strokeWeight(5);
-
+    
+    //Play Button
     stroke(deepred);
     fill(red);
     rect(playButton.x - buttonW/2, playButton.y - buttonH/2, buttonW, buttonH);
     hoveringPlayButton = isMouseHover(playButton.x - buttonW/2, playButton.y - buttonH/2, buttonW, buttonH);
 
+    //Slides (Learn) Button
     stroke(deeporange);
     fill(orange);
     rect(slidesButton.x - buttonW/2, slidesButton.y - buttonH/2, buttonW, buttonH);
     hoveringSlidesButton = isMouseHover(slidesButton.x - buttonW/2, slidesButton.y - buttonH/2, buttonW, buttonH);
 
+    //Text
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(32);
     text("PLAY", playButton.x, playButton.y-4);
     text("LEARN", slidesButton.x, slidesButton.y-4);
 
+    //Header
     textSize(72);
     text("OSCILLATION", wave, height/3);
   }
 
   void mousePressed() {
     if (hoveringPlayButton) gameState = new SceneGame();
-    //if (hoveringSlidesButton) gameState = new SceneSlides();
+    if (hoveringSlidesButton) gameState = new SceneSlides();
   }
 }
