@@ -4,6 +4,8 @@ class SceneGame extends Scene {
   Goal goal;
 
   int gameHeight, pivotSpacing;
+  
+  Button exitButton;
 
 
   PVector pv = new PVector(), origin = new PVector();
@@ -15,8 +17,10 @@ class SceneGame extends Scene {
   float vel = 0.0;
 
   SceneGame() {
-    gameHeight = height*4/5;
+    gameHeight = height-50;
     pivotSpacing =  width/8; //Initiate after width is declared
+    
+    exitButton = new Button(35, gameHeight+25, 50, 30, violet, deepyellow, "<", 20);
 
     pivots = new Pivot[3]; //Initiate with static amount because there will always only be 3
     for (int i = 0; i < pivots.length; i++) {
@@ -69,8 +73,9 @@ class SceneGame extends Scene {
     player.draw();
 
     //UI
-    fill(200);
+    fill(deeppurple);
     rect(0, gameHeight, width, height);
+    exitButton.draw();
   }
 
   public void keyPressed() {
@@ -78,5 +83,9 @@ class SceneGame extends Scene {
       if (keyCode == 90) player.ApplyForce(); //Z
       if (keyCode == 32) player.DetachTether(); //Spacebar
     }
+  }
+  
+  void mousePressed() {
+    if (exitButton.isHovering) gameState = new SceneTitle();
   }
 }

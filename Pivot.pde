@@ -5,13 +5,13 @@ class Pivot {
   int proximity;
 
   Pivot(int x) { //Each Pivot has a determined horizonal placement
-  pos = new PVector();
+    pos = new PVector();
 
     radius = 9;
     proximity = 75;
 
     pos.x = x;
-    pos.y = (int)random(proximity, height-proximity);
+    pos.y = (int)random(proximity, height*4/5 - proximity);
 
     pColor = orange;
   }
@@ -23,7 +23,7 @@ class Pivot {
     fill(pColor);
     noStroke();
     ellipse(pos.x, pos.y, radius*2, radius*2);
-    
+
     noFill();
     stroke(pColor, 50);
     strokeWeight(3);

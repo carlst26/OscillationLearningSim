@@ -6,7 +6,7 @@
 
 float dt, prevTime;
 float time;
-color purple, violet, deepred, red, deeporange, orange, yellow;
+color purple, deeppurple, violet, red, deepred, orange, deeporange, yellow, deepyellow;
 Scene gameState;
 
 void setup() {
@@ -57,10 +57,12 @@ boolean isMouseHover(float x, float y, int w, int h) { // Button - put in Main c
 //Dusk color palette
 void assignColors() {
   purple = #432967;
+  deeppurple = #231A30;
   violet = #782D65;
   deepred = #C3305D;
   red = #F0445E;
   deeporange = #D86349;
   orange = #FD9367;
   yellow = #FDCD83;
+  deepyellow = #CEA261;
 }

@@ -74,7 +74,7 @@ class Player {
 
     //Draw
     strokeWeight(2);
-    stroke(0);
+    stroke(#000000);
     line(pos.x, pos.y, origin.pos.x, origin.pos.y);
   }
 
