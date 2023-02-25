@@ -3,7 +3,7 @@ class SceneGame extends Scene {
   Pivot[] pivots;
   Goal goal;
 
-  int pivotSpacing;
+  int gameHeight, pivotSpacing;
 
 
   PVector pv = new PVector(), origin = new PVector();
@@ -15,6 +15,7 @@ class SceneGame extends Scene {
   float vel = 0.0;
 
   SceneGame() {
+    gameHeight = height*4/5;
     pivotSpacing =  width/8; //Initiate after width is declared
 
     pivots = new Pivot[3]; //Initiate with static amount because there will always only be 3
@@ -68,6 +69,8 @@ class SceneGame extends Scene {
     player.draw();
 
     //UI
+    fill(200);
+    rect(0, gameHeight, width, height);
   }
 
   public void keyPressed() {

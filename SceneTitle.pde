@@ -1,16 +1,15 @@
 class SceneTitle extends Scene {
 
   int buttonW, buttonH;
-  PVector playButton, slidesButton;
-  boolean hoveringPlayButton, hoveringSlidesButton;
+  Button playButton, slidesButton;
   float wave;
 
   SceneTitle() {
     buttonW = 140;
     buttonH = 60;
 
-    playButton = new PVector(width*3/8, height*4/5);
-    slidesButton = new PVector(width*5/8, height*4/5);
+    playButton = new Button(width*3/8, height*4/5, buttonW, buttonH, red, deepred);
+    slidesButton = new Button(width*5/8, height*4/5, buttonW, buttonH, orange, deeporange);
   }
 
   void update() {
@@ -23,18 +22,10 @@ class SceneTitle extends Scene {
     strokeJoin(ROUND);
     strokeWeight(5);
     
-    //Play Button
-    stroke(deepred);
-    fill(red);
-    rect(playButton.x - buttonW/2, playButton.y - buttonH/2, buttonW, buttonH);
-    hoveringPlayButton = isMouseHover(playButton.x - buttonW/2, playButton.y - buttonH/2, buttonW, buttonH);
-
-    //Slides (Learn) Button
-    stroke(deeporange);
-    fill(orange);
-    rect(slidesButton.x - buttonW/2, slidesButton.y - buttonH/2, buttonW, buttonH);
-    hoveringSlidesButton = isMouseHover(slidesButton.x - buttonW/2, slidesButton.y - buttonH/2, buttonW, buttonH);
-
+    //Buttons
+    playButton.draw();
+    slidesButton.draw();
+    
     //Text
     textAlign(CENTER, CENTER);
     fill(255);
@@ -48,7 +39,7 @@ class SceneTitle extends Scene {
   }
 
   void mousePressed() {
-    if (hoveringPlayButton) gameState = new SceneGame();
-    if (hoveringSlidesButton) gameState = new SceneSlides();
+    if (playButton.isHovering) gameState = new SceneGame();
+    if (slidesButton.isHovering) gameState = new SceneSlides();
   }
 }
