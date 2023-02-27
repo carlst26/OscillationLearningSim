@@ -7,7 +7,7 @@ class Pivot {
   Pivot(int x) { //Each Pivot has a determined horizonal placement
     pos = new PVector();
 
-    radius = 9;
+    radius = 7;
     proximity = 75;
 
     pos.x = x;

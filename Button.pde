@@ -27,6 +27,7 @@ class Button {
     
     textAlign(CENTER, CENTER);
     fill(255);
+    textFont(body);
     textSize(ts);
     text(t, x, y-4);
   }

@@ -7,15 +7,6 @@ class SceneGame extends Scene {
   
   Button exitButton;
 
-
-  PVector pv = new PVector(), origin = new PVector();
-  float r = 40; //TetherLength
-  float ang = PI*2/3;
-  float grav = .4;
-  float accel = 0.0;
-  float damp = .995;
-  float vel = 0.0;
-
   SceneGame() {
     gameHeight = height-50;
     pivotSpacing =  width/8; //Initiate after width is declared
@@ -32,9 +23,6 @@ class SceneGame extends Scene {
     goal = new Goal(width-pivotSpacing);
     //Instantiate the player on the first pivot
     player = new Player(pivots[0]);
-
-
-    origin = new PVector(width/3, height/3);
   }
 
   public void update() {
@@ -46,24 +34,6 @@ class SceneGame extends Scene {
   }
 
   public void draw() {
-    //Samples
-    float wave = 60*cos(time*2) + height/3;
-    ellipse(width/2, wave, 20, 20);
-
-    //Daniel Shiffman Pendulum
-    accel = (-1 * grav / r) * sin(ang);
-    vel += accel;
-    vel *= damp;
-    ang += vel;
-
-    pv.set(r*sin(ang), r*cos(ang), 0);
-    pv.add(origin);
-    fill(#AAAA00);
-    stroke(1);
-    line(origin.x, origin.y, pv.x, pv.y);
-    ellipse(origin.x, origin.y, 5, 5);
-    ellipse(pv.x, pv.y, 20, 20);
-
 
     //Draws
     for (Pivot piv : pivots) {
@@ -76,6 +46,25 @@ class SceneGame extends Scene {
     fill(deeppurple);
     rect(0, gameHeight, width, height);
     exitButton.draw();
+    
+    textAlign(CENTER, CENTER);
+    textFont(header);
+    textSize(26);
+    fill(255);
+    text("Z", 115, gameHeight+22);
+    text("SPACE", width/3 + 50, gameHeight+22);
+    
+    textAlign(LEFT, CENTER);
+    textFont(body);
+    fill(yellow);
+    text("Apply Force", 130, gameHeight+23);
+    text("Detatch Tether", width/2 - 35, gameHeight+23);
+    
+    textAlign(RIGHT, CENTER);
+    textFont(body);
+    textSize(23);
+    fill(yellow);
+    text("Get to the yellow goal!", width-10, gameHeight+22);
   }
 
   public void keyPressed() {

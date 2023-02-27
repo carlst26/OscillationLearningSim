@@ -2,25 +2,30 @@
 // Visualization Tools - Oscillation
 
 
-
-
 float dt, prevTime;
 float time;
+
 color purple, deeppurple, violet, red, deepred, orange, deeporange, yellow, deepyellow;
+PFont header, body;
+
 Scene gameState;
 
 void setup() {
   size(800, 500);
   prevTime = 0;
-  
+
   assignColors();
+  header = createFont("fonts/Merriweather-Bold.ttf", 50);
+  body = createFont("fonts/Rubik-Regular.ttf", 16);
+
   gameState = new SceneTitle();
 }
 
 void draw() {
+  background(purple);
+
   time = (float)millis()/1000;
   calcDeltaTime();
-  background(purple);
 
   gameState.update();
 

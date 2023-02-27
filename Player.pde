@@ -14,7 +14,7 @@ class Player {
   Player(Pivot p) {
     v = new PVector();
     pos = new PVector();
-    pos.set(p.pos.x, p.pos.y);
+    pos.set(p.pos.x-40, p.pos.y);
     radius = 16;
 
     angle = Float.NaN;
@@ -40,7 +40,7 @@ class Player {
   }
 
   void draw() {
-    fill(#FF0000);
+    fill(red);
     noStroke();
     ellipse(pos.x, pos.y, radius*2, radius*2);
   }
@@ -55,7 +55,7 @@ class Player {
       R = maxTetherLength;
 
     if (R == maxTetherLength) { //STUB
-      if (Float.isNaN(angle)) angle = atan2(origin.pos.y-pos.y, origin.pos.x-pos.x);
+      if (Float.isNaN(angle)) angle = atan2(origin.pos.y-pos.y, origin.pos.x-pos.x) + PI/2;
       acceleration = (-1 * GRAVITY / R) * sin(angle);
       velocity += acceleration;
       velocity *= damping;
@@ -64,17 +64,18 @@ class Player {
       pos.set(R*sin(angle), R*cos(angle));
       pos.add(origin.pos);
     } else {
-      acceleration = GRAVITY;
-      velocity += acceleration;
-      angle = 0;
-      pos.set(R*sin(angle), R*cos(angle));
+      pos.y += GRAVITY;
+      //acceleration = GRAVITY;
+      //velocity += acceleration;
+      //angle = 0;
+      //pos.set(R*sin(angle), R*cos(angle));
     }
 
 
 
     //Draw
     strokeWeight(2);
-    stroke(#000000);
+    stroke(deepred);
     line(pos.x, pos.y, origin.pos.x, origin.pos.y);
   }
 
