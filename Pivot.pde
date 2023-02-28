@@ -8,7 +8,7 @@ class Pivot {
     pos = new PVector();
 
     radius = 7;
-    proximity = 75;
+    proximity = 45;
 
     pos.x = x;
     pos.y = (int)random(proximity, height*4/5 - proximity);
@@ -28,5 +28,6 @@ class Pivot {
     stroke(pColor, 50);
     strokeWeight(3);
     ellipse(pos.x, pos.y, proximity*2, proximity*2);
+    ellipse(pos.x, pos.y, 150, 150);
   }
 }
