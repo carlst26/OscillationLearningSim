@@ -42,11 +42,14 @@ class SceneGame extends Scene {
 
     //Updates
     player.update();
+    goal.update();
 
     //Check Collision
-    for (Pivot piv : pivots)
+    for (Pivot piv : pivots) {
+      piv.update();
       if (checkRadialCollision(player, piv))
         player.retether(piv);
+    }
 
     //Win Condition
     if (checkRadialCollision(player, goal)) {

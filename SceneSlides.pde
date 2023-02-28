@@ -2,7 +2,7 @@ class SceneSlides extends Scene {
   int currentSlide;
 
   //slide0 square
-  float objectPos, flip;
+  float objectPos, flip, rot;
 
   //Pendulum
   PVector pv, origin;
@@ -22,6 +22,7 @@ class SceneSlides extends Scene {
 
     objectPos = (height*2/3 + 120)/2;
     flip = 1;
+    rot = PI;
 
     //Pendulum
     r = 150; //TetherLength
@@ -102,21 +103,44 @@ class SceneSlides extends Scene {
     fill(yellow);
     text("Basically, oscillations are \"slow\" vibrations!", 50, height*3/4-30);
 
-    if (objectPos >= height*2/3) flip = -1;
-    if (objectPos <= 120) flip = 1;
+    if (objectPos >= height*2/3+20) {
+      flip = -1;
+      rot = 0;
+    }
+    if (objectPos <= 140) {
+      flip = 1;
+      rot = PI;
+    }
     objectPos += dt * 120 * flip;
     
     strokeCap(SQUARE);
     strokeWeight(2);
     fill(violet);
     stroke(violet);
-    line(width*7/8, height*2/3+20, width*7/8, 120+20);
+    line(width*7/8, height*2/3+20, width*7/8, 140);
     ellipse(width*7/8, (height*2/3 + 120)/2 + 20, 10, 10);
-
+    
+    //Flipping Triangle
+    pushMatrix();
+    translate(width*7/8, objectPos);
+    rotate(rot);
+    
+    strokeCap(ROUND);
     strokeWeight(5);
     fill(red);
     stroke(red);
-    rect(width*7/8-20, objectPos, 40, 40);
+    
+    float x; //Rotate seems to offset the shape by a pixel
+    if (rot == 0) x = 0;
+    else x = -1;
+    
+    beginShape();
+    vertex(x, -20);
+    vertex(22, 20);
+    vertex(-22, 20);
+    vertex(x, -20);
+    endShape();
+    popMatrix();
   }
 
   //What is NOT Oscillation?
