@@ -2,11 +2,13 @@ class SceneGame extends Scene {
   Player player;
   Pivot[] pivots;
   Goal goal;
+  ParticleSystem ps;
 
   int gameHeight, pivotSpacing, resetCounter;
   Boolean didWin, outOfBounds;
   String resetMessage;
   Button exitButton;
+  color inputZ, inputSpace;
 
   SceneGame() {
     gameHeight = height-50;
@@ -17,6 +19,8 @@ class SceneGame extends Scene {
     didWin = false;
     outOfBounds = false;
     resetMessage = "";
+    inputZ = 255;
+    inputSpace = 255;
 
     exitButton = new Button(35, gameHeight+25, 50, 30, violet, deepyellow, "<", 20);
 
@@ -30,6 +34,7 @@ class SceneGame extends Scene {
     goal = new Goal(width-pivotSpacing);
     //Instantiate the player on the first pivot
     player = new Player(pivots[0]);
+    ps = new ParticleSystem(player);
   }
 
   public void update() {
@@ -68,6 +73,9 @@ class SceneGame extends Scene {
       piv.draw();
     }
     goal.draw();
+    
+    ps.addParticle();
+    ps.update();
     player.draw();
 
     //UI
@@ -78,8 +86,9 @@ class SceneGame extends Scene {
     textAlign(CENTER, CENTER);
     textFont(header);
     textSize(26);
-    fill(255);
+    fill(inputZ);
     text("Z", 115, gameHeight+22);
+    fill(inputSpace);
     text("SPACE", width/3 + 50, gameHeight+22);
 
     textAlign(LEFT, CENTER);
@@ -90,8 +99,8 @@ class SceneGame extends Scene {
 
     textAlign(RIGHT, CENTER);
     textFont(body);
-    textSize(23);
-    fill(yellow);
+    //textSize(23);
+    fill(255);
     text("Swing to the yellow goal!", width-10, gameHeight+22);
 
     if (winCounter > 0) {
@@ -113,6 +122,14 @@ class SceneGame extends Scene {
 
   public void keyPressed() {
     player.keyPressed();
+    if (keyCode == 90) inputZ = red;
+    if (keyCode == 32) inputSpace = red;
+  }
+  
+  void keyReleased() {
+    if (keyCode == 90) inputZ = 255;
+    if (keyCode == 32) inputSpace = 255;
+    println("test");
   }
 
   void mousePressed() {

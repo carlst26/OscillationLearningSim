@@ -13,14 +13,14 @@ class Player {
   Player(Pivot p) {
 
     isTethered = true;
-    maxTetherLength = 65;
+    maxTetherLength = 60;
     originPivot = p;
     
     pos = new PVector();
     prevPos = new PVector();
     airVelocity = new PVector();
     pos.set(p.pos.x-maxTetherLength, p.pos.y);
-    radius = 15;
+    radius = 10;
 
     angle = 0;
     acceleration = 0.0;

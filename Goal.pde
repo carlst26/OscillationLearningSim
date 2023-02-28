@@ -6,10 +6,6 @@ class Goal extends Pivot {
     pColor = yellow;
   }
 
-  void update() {
-    super.update();
-  }
-
   public void draw() {
     super.draw();
   }

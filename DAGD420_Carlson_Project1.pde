@@ -50,6 +50,10 @@ void keyPressed() {
   gameState.keyPressed();
 }
 
+void keyReleased() {
+  gameState.keyReleased();
+}
+
 // Thank you Quynh!
 boolean isMouseHover(float x, float y, int w, int h) { // Button - put in Main class to be accessible from ANY CLASS
   if (mouseX >= x && mouseX <= ( x + w ) && mouseY >= y && mouseY <= ( y + h) ) { //When mouse over button:

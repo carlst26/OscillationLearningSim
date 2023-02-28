@@ -8,4 +8,5 @@ class Scene {
   public void draw() {}
   public void mousePressed() {}
   public void keyPressed() {}
+  public void keyReleased() {}
 }

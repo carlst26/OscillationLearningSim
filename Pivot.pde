@@ -21,12 +21,9 @@ class Pivot {
     n = TWO_PI/7; //Change denominator
     
     pos.x = x;
-    pos.y = (int)random(padding, height*4/5 - padding);
+    pos.y = (int)random(padding, height-50 - padding);
 
     pColor = deeporange;
-  }
-
-  void update() {
   }
 
   public void draw() {
