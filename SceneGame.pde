@@ -3,13 +3,20 @@ class SceneGame extends Scene {
   Pivot[] pivots;
   Goal goal;
 
-  int gameHeight, pivotSpacing;
-
+  int gameHeight, pivotSpacing, resetCounter;
+  Boolean didWin, outOfBounds;
+  String resetMessage;
   Button exitButton;
 
   SceneGame() {
     gameHeight = height-50;
     pivotSpacing =  width/8; //Initiate after width is declared
+
+    resetCounter = 120;
+
+    didWin = false;
+    outOfBounds = false;
+    resetMessage = "";
 
     exitButton = new Button(35, gameHeight+25, 50, 30, violet, deepyellow, "<", 20);
 
@@ -32,12 +39,26 @@ class SceneGame extends Scene {
     player.update();
 
     //Check Collision
-    if (checkRadialCollision(player, goal))
-      player.retether(goal);
-
     for (Pivot piv : pivots)
       if (checkRadialCollision(player, piv))
         player.retether(piv);
+
+    //Win Condition
+    if (checkRadialCollision(player, goal)) {
+      player.retether(goal);
+      didWin = true;
+    }
+
+    if (didWin) resetCounter--;
+    else if (player.outOfBounds()) {
+      outOfBounds = true;
+      resetCounter--;
+    }
+
+    if (resetCounter <= 0) {
+      if (didWin) winCounter++;
+      resetScene();
+    }
   }
 
   public void draw() {
@@ -50,7 +71,7 @@ class SceneGame extends Scene {
     player.draw();
 
     //UI
-    fill(deeppurple);
+    fill(purple);
     rect(0, gameHeight, width, height);
     exitButton.draw();
 
@@ -71,7 +92,23 @@ class SceneGame extends Scene {
     textFont(body);
     textSize(23);
     fill(yellow);
-    text("Get to the yellow goal!", width-10, gameHeight+22);
+    text("Swing to the yellow goal!", width-10, gameHeight+22);
+
+    if (winCounter > 0) {
+      textAlign(RIGHT, CENTER);
+      textFont(body);
+      fill(red);
+      text("Wins: " + winCounter, width-10, gameHeight-20);
+    }
+
+    if (didWin) resetMessage = "Win!";
+    else if (outOfBounds) resetMessage = "Out of Bounds!";
+
+    textAlign(CENTER, CENTER);
+    textFont(body);
+    textSize(32);
+    fill(yellow);
+    text(resetMessage, width/2, 40);
   }
 
   public void keyPressed() {
@@ -89,5 +126,9 @@ class SceneGame extends Scene {
 
     if (dis <= piv.proximity) return true;
     return false;
+  }
+
+  void resetScene() {
+    gameState = new SceneGame();
   }
 }

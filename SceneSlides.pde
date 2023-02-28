@@ -105,7 +105,8 @@ class SceneSlides extends Scene {
     if (objectPos >= height*2/3) flip = -1;
     if (objectPos <= 120) flip = 1;
     objectPos += dt * 120 * flip;
-
+    
+    strokeCap(SQUARE);
     strokeWeight(2);
     fill(violet);
     stroke(violet);
@@ -230,7 +231,8 @@ class SceneSlides extends Scene {
     fill(violet);
     ellipse(origin.x, origin.y+r, 6, 6); //Equilibrium Point
 
-    //Rod
+    //Rod    
+    strokeCap(SQUARE);
     strokeWeight(2);
     stroke(deeporange);
     line(origin.x, origin.y, pv.x, pv.y);

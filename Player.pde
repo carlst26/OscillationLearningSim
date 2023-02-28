@@ -1,43 +1,39 @@
 class Player {
-  final float GRAVITY = .098; //Y Acceleration
-  final float friction = .99; //X Acceleration
+  final float GRAVITY = .2; //Y Acceleration
 
   //Position and Velocity
   PVector pos, prevPos, airVelocity;
-  int radius;
+  int radius, maxTetherLength;
 
-  float angle, acceleration, damping, velocity, R, maxTetherLength;
+  float angle, acceleration, damping, velocity, R;
 
   boolean isTethered;
   Pivot originPivot;
 
   Player(Pivot p) {
-    //v = new PVector();
+
+    isTethered = true;
+    maxTetherLength = 65;
+    originPivot = p;
+    
     pos = new PVector();
     prevPos = new PVector();
     airVelocity = new PVector();
-    pos.set(p.pos.x-10, p.pos.y);
-    radius = 16;
+    pos.set(p.pos.x-maxTetherLength, p.pos.y);
+    radius = 15;
 
     angle = 0;
     acceleration = 0.0;
-    damping = .99;
+    damping = .993;
     velocity = 0.0;
-    //R = maxTetherLength;
-
-    isTethered = true;
-    maxTetherLength = 75.0;
-    originPivot = p;
   }
 
   void update() {
     if (isTethered) {
       updateTether();
-      drawTether();
+      drawTether(); //Draws underneath the pivot
     }
     else projectileMotion();
-    
-    //stayInBounds();
   }
 
   void draw() {
@@ -50,13 +46,13 @@ class Player {
   //Tether takes a pivot as input to bind to
   void updateTether() {
     //Make the player conform to the pivot and tether
-    float lineLength = sqrt( (originPivot.pos.x-pos.x)*(originPivot.pos.x-pos.x) + (originPivot.pos.y-pos.y)*(originPivot.pos.y-pos.y) );
+    float lineLength = sqrt( sq((originPivot.pos.x-pos.x)) + sq((originPivot.pos.y-pos.y)) );
     
     //If tether is at max length, stop the player from leaving the proximity
     if ( lineLength >= maxTetherLength ) { //Debug
       R = maxTetherLength;
       angle = -(atan2(originPivot.pos.y-pos.y, originPivot.pos.x-pos.x) + PI/2);
-    }
+    } 
     
     if (R == maxTetherLength) {
       acceleration = (-1 * GRAVITY / R) * sin(angle);
@@ -66,8 +62,6 @@ class Player {
 
       pos.set(R*sin(angle), R*cos(angle));
       pos.add(originPivot.pos);
-    } else {
-      projectileMotion();
     }
     
     airVelocity.set(pos.x-prevPos.x, pos.y-prevPos.y);
@@ -98,15 +92,16 @@ class Player {
     originPivot = piv;
     angle = -(atan2(originPivot.pos.y-pos.y, originPivot.pos.x-pos.x) + PI/2);
   }
-
-  void stayInBounds() {
-    if (pos.x < radius) pos.x = radius;
-    if (pos.x > width-radius) pos.x = width-radius;
-    if (pos.y > 200) pos.y = 200;
+  
+  Boolean outOfBounds() {
+    if (pos.y > height) return true;
+    if (pos.x < -radius) return true;
+    if (pos.x > width+radius) return true;
+    return false;
   }
   
   void keyPressed() {
-      if (keyCode == 90 && R == maxTetherLength) applyForce(); //Z
+      if (keyCode == 90 && isTethered) applyForce(); //Z
       if (keyCode == 32 && isTethered) detachTether(); //Spacebar
   }
 }
