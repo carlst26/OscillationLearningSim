@@ -8,8 +8,8 @@ class SceneTitle extends Scene {
     buttonW = 140;
     buttonH = 60;
 
-    playButton = new Button(width*3/8, height*4/5, buttonW, buttonH, orange, deeporange, "Play", 32);
-    slidesButton = new Button(width*5/8, height*4/5, buttonW, buttonH, red, deepred, "Learn", 32);
+    slidesButton = new Button(width*3/8, height*4/5, buttonW, buttonH, red, deepred, "Learn", 32);
+    playButton = new Button(width*5/8, height*4/5, buttonW, buttonH, orange, deeporange, "Play", 32);
   }
 
   void update() {

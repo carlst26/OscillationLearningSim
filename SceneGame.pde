@@ -90,19 +90,21 @@ class SceneGame extends Scene {
     rect(0, gameHeight, width, height);
     exitButton.draw();
 
-    textAlign(CENTER, CENTER);
+    textAlign(LEFT, CENTER);
     textFont(header);
     textSize(26);
     fill(inputZ);
-    text("Z", 115, gameHeight+22);
+    text("Z", 128, gameHeight+22);
     fill(inputSpace);
-    text("SPACE", width/3 + 50, gameHeight+22);
+    text("SPACE", width/2 -57, gameHeight+22);
 
     textAlign(LEFT, CENTER);
     textFont(body);
     fill(yellow);
-    text("Apply Force", 130, gameHeight+23);
-    text("Detatch Tether", width/2 - 35, gameHeight+23);
+    text("tap", 100, gameHeight+23);
+    text("tap", width/2 -86, gameHeight+23);
+    text("to APPLY FORCE", 149, gameHeight+23);
+    text("to DETACH", width/2 + 33, gameHeight+23);
 
     textAlign(RIGHT, CENTER);
     textFont(body);
