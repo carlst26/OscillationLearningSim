@@ -95,6 +95,7 @@ class Player {
   
   Boolean outOfBounds() {
     if (pos.y > height) return true;
+    if (pos.y < -height*4) return true;
     if (pos.x < -radius) return true;
     if (pos.x > width+radius) return true;
     return false;

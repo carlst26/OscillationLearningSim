@@ -62,9 +62,13 @@ class SceneGame extends Scene {
       outOfBounds = true;
       resetCounter--;
     }
+    else {
+      outOfBounds = false;
+      resetCounter = 120;
+    }
 
     if (resetCounter <= 0) {
-      if (didWin) winCounter++;
+      if (didWin) winCount++;
       resetScene();
     }
   }
@@ -106,15 +110,16 @@ class SceneGame extends Scene {
     fill(255);
     text("Swing to the yellow goal!", width-10, gameHeight+22);
 
-    if (winCounter > 0) {
+    if (winCount > 0) {
       textAlign(RIGHT, CENTER);
       textFont(body);
       fill(red);
-      text("Wins: " + winCounter, width-10, gameHeight-20);
+      text("Wins: " + winCount, width-10, gameHeight-20);
     }
 
     if (didWin) resetMessage = "Win!";
     else if (outOfBounds) resetMessage = "Out of Bounds!";
+    else resetMessage = "";
 
     textAlign(CENTER, CENTER);
     textFont(body);
@@ -132,7 +137,6 @@ class SceneGame extends Scene {
   void keyReleased() {
     if (keyCode == 90) inputZ = 255;
     if (keyCode == 32) inputSpace = 255;
-    println("test");
   }
 
   void mousePressed() {

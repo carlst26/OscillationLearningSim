@@ -8,7 +8,7 @@ float time;
 color purple, deeppurple, violet, red, deepred, orange, deeporange, yellow, deepyellow;
 PFont header, body;
 
-int winCounter;
+int winCount;
 
 Scene gameState;
 
@@ -20,7 +20,7 @@ void setup() {
   header = createFont("fonts/Merriweather-Bold.ttf", 50);
   body = createFont("fonts/Rubik-Regular.ttf", 16);
   
-  winCounter = 0;
+  winCount = 0;
 
   gameState = new SceneTitle();
 }
