@@ -95,13 +95,18 @@ class SceneSlides extends Scene {
 
     textFont(body);
     fill(deeporange);
-    text("Periodic motion is movement repeated in equal intervals of time. \nThis means oscillating objects must have an \"equilibrium point\" that \nthey pass through when moving to and fro, and move at a set pace.", 75, height/2 -10);
+    text("Periodic motion is movement repeated in equal intervals of time. This \nmeans oscillating objects must have an Equilibrium Point (EP) that \nthey pass through when moving to and fro, and move at a set pace.", 75, height/2 -10);
 
     //textAlign(L, CENTER);
     textFont(body);
     textSize(20);
     fill(yellow);
     text("Basically, oscillations are \"slow\" vibrations!", 50, height*3/4-30);
+
+    textAlign(LEFT, CENTER);
+    textFont(body);
+    fill(violet);
+    text("EP", width*7/8 + 15, (height*2/3 + 120)/2 + 18);
 
     if (objectPos >= height*2/3+20) {
       flip = -1;
@@ -112,28 +117,28 @@ class SceneSlides extends Scene {
       rot = PI;
     }
     objectPos += dt * 120 * flip;
-    
+
     strokeCap(SQUARE);
     strokeWeight(2);
     fill(violet);
     stroke(violet);
     line(width*7/8, height*2/3+20, width*7/8, 140);
     ellipse(width*7/8, (height*2/3 + 120)/2 + 20, 10, 10);
-    
+
     //Flipping Triangle
     pushMatrix();
     translate(width*7/8, objectPos);
     rotate(rot);
-    
+
     strokeCap(ROUND);
     strokeWeight(5);
     fill(red);
     stroke(red);
-    
+
     float x; //Rotate seems to offset the shape by a pixel
     if (rot == 0) x = 0;
     else x = -1;
-    
+
     beginShape();
     vertex(x, -20);
     vertex(22, 20);
@@ -193,26 +198,23 @@ class SceneSlides extends Scene {
     //no damping!
     ang += vel;
     pendulum();
-    
+
     textFont(body);
     //text(vel*10, 50, height/2);
     //text(accel*10, 50, height/2 + 20);
-    
+
     textAlign(LEFT, TOP);
     textFont(body);
     textSize(20);
     fill(yellow);
     text("SHM follows Hooke's Law: F = -kx", 50, height/3 -50);
-    
+
     textFont(body);
     fill(orange);
-    text("Hooke's Law states that the Force (F) moving the object will always push it toward the \nequilibrium position.", 75, height/3-20);
-    
+    text("Hooke's Law states that the Force (F) moving an object will always push it toward the \nequilibrium position.", 75, height/3-20);
+
     fill(deeporange);
-    text("In a pendulum, this force is its acceleration. This means a pendulum will always have the \nmost acceleration force at the top of the swing, and have no acceleration at the base of \nits swing when it is the fastest.", 50, height/2-40);
-
-    
-
+    text("In a pendulum, this force is its acceleration. This means a pendulum will always have the \nmost acceleration force at the peak of the swing, and have no acceleration at the base (EP) \nof its swing when it is the fastest.", 50, height/2-40);
   }
 
   //Damped Harmonic Motion
@@ -227,7 +229,7 @@ class SceneSlides extends Scene {
     vel *= damp;
     ang += vel;
     pendulum();
-    
+
     textAlign(LEFT, TOP);
     textFont(body);
     textSize(20);
@@ -236,8 +238,6 @@ class SceneSlides extends Scene {
 
     fill(orange);
     text("In this case, damping = friction!", 50, height/3);
-    
-    
   }
 
   //slides 2 and 3 handle the math
@@ -245,7 +245,7 @@ class SceneSlides extends Scene {
     //Set bob position
     pv.set(r*sin(ang), r*cos(ang));
     pv.add(origin);
-    
+
     //Motion "Silhouette"
     noFill();
     strokeWeight(2);
@@ -255,7 +255,19 @@ class SceneSlides extends Scene {
     fill(violet);
     ellipse(origin.x, origin.y+r, 6, 6); //Equilibrium Point
 
-    //Rod    
+    //Text
+    textAlign(CENTER, CENTER);
+    textFont(body);
+    fill(violet);
+    text("EP", origin.x, origin.y+r+15);
+
+    textAlign(LEFT, BOTTOM);
+    text("peak", r*cos(PI/2-startAng - .05) + origin.x, r*sin(PI/2-startAng-.05) + origin.y);
+    textAlign(RIGHT, BOTTOM);
+    text("peak", r*cos(PI/2 + startAng + .05) + origin.x, r*sin(PI/2+startAng+.05) + origin.y);
+
+
+    //Rod
     strokeCap(SQUARE);
     strokeWeight(2);
     stroke(deeporange);

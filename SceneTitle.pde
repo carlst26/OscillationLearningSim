@@ -36,10 +36,14 @@ class SceneTitle extends Scene {
     textSize(72);
     text("OSCILLATION", wave, height/3);
     
+    textAlign(CENTER, BOTTOM);
     textFont(body);
-    //textSize(12);
     fill(yellow);
-    text("A visual demonstration by Tyger Carlson", width/2, height-25);
+    text("A visual demonstration by Tyger Carlson", width/2, height-10);
+    
+    textAlign(RIGHT, BOTTOM);
+    textSize(11);
+    text("© 2023", width-10, height-10);
   }
 
   void mousePressed() {
