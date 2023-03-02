@@ -1,7 +1,7 @@
 class SceneTitle extends Scene {
 
   int buttonW, buttonH;
-  Button playButton, slidesButton;
+  Button playButton, slidesButton, exitButton;
   float wave;
 
   SceneTitle() {
@@ -10,6 +10,7 @@ class SceneTitle extends Scene {
 
     slidesButton = new Button(width*3/8, height*4/5, buttonW, buttonH, red, deepred, "Learn", 32);
     playButton = new Button(width*5/8, height*4/5, buttonW, buttonH, orange, deeporange, "Play", 32);
+    exitButton = new Button(30, height-30, 32, 30, deeppurple, deeppurple, "x", 20);
   }
 
   void update() {
@@ -22,6 +23,7 @@ class SceneTitle extends Scene {
     //Buttons
     playButton.draw();
     slidesButton.draw();
+    exitButton.draw();
     
     //Text
     //textAlign(CENTER, CENTER);
@@ -49,5 +51,6 @@ class SceneTitle extends Scene {
   void mousePressed() {
     if (playButton.isHovering) gameState = new SceneGame();
     if (slidesButton.isHovering) gameState = new SceneSlides();
+    if (exitButton.isHovering) exit();
   }
 }
